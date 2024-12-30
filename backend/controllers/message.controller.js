@@ -41,7 +41,6 @@ export const sendMessage = async (req, res) => {
 
 export const getMessages = async (req, res) => {
     try {
-
         const { id: userToChatId} = req.params;
         const senderId = req.user._id;
 
@@ -49,9 +48,7 @@ export const getMessages = async (req, res) => {
             participants: {$all: [senderId, userToChatId]}
         }).populate("messages");
 
-        if(!conversation){
-            res.status(200).json([])
-        }
+        if(!conversation) return res.status(200).json([])
 
         const messages = conversation.messages;
 
